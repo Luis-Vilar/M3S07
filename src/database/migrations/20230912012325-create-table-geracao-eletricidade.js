@@ -15,7 +15,7 @@ module.exports = {
         allowNull: false,
       },
       total_generated: {
-        type: Sequelize.NUMBER,
+        type: Sequelize.INTEGER,
         allowNull: true,
       },
       created_at: {
@@ -35,6 +35,6 @@ module.exports = {
 
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable("geracoes");
-    
+
   },
 };
