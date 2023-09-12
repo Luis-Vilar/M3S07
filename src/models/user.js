@@ -2,9 +2,9 @@ const { connection } = require("../database/connection");
 const { INTEGER, STRING, DATE } = require("sequelize");
 
 const User = connection.define(
-  "user",
+  "User",
   {
-    userId: {
+    id: {
       type: INTEGER,
       allowNull: false,
       references: {

@@ -6,16 +6,16 @@ config();
 class UserController {
   async createOneUser(request, response) {
     try {
-      const { userId, name, email, password } = request.body;
+      const { id, name, email, password } = request.body;
 
-      if (!userId || !name || !email || !email || !password) {
+      if (!id || !name || !email || !email || !password) {
         return response.status(400).send({
           message: "Todos os campos são obrigatórios!",
         });
       }
 
       const data = await User.create({
-        userId,
+        id,
         name,
         email,
         password,
