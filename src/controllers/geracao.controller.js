@@ -1,16 +1,13 @@
 const { GeracaoMensal } = require("../models/geracaoMensal");
 
-class GeracaoController {
+module.exports = {
     async getGeracao(req, res) {
         try {
-            const geracoes = await GeracaoMensal.findAll();
-            return res.status(200).json(geracoes);
-        } catch (error) {
-            return res.status(500).json(error.message);
+            const geracao = await GeracaoMensal.findAll();
+            return res.status(200).json(geracao);
+        }
+        catch (error) {
+            return res.status(500).json({ error: error.message });
         }
     }
 }
-
-module.exports = {
-    GeracaoController
-};
