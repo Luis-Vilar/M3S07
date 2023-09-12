@@ -1,7 +1,7 @@
 const { connection } = require("../database/connection");
 const { INTEGER, DATE } = require("sequelize");
 
-const GeraMensal = connection.define("geracoes", {
+const GeracaoMensal = connection.define("geracoes", {
     id: {
         type: INTEGER,
         primaryKey: true,
@@ -24,5 +24,5 @@ const GeraMensal = connection.define("geracoes", {
 );
 
 module.exports = {
-    GeraMensal
+    GeraMensal: GeracaoMensal
 };
