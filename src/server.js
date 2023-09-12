@@ -2,20 +2,20 @@
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
-const {config} = require("dotenv");
+const { config } = require("dotenv");
 config();
 
 // classe server
 class Server {
   // constructor de classe
   constructor(app = express()) {
-    this.routes(app);
     this.middlewares(app);
+    this.routes(app);
     this.database();
     this.initializeServer(app);
   }
   // middlewares
-  async middlewares(app) { 
+  async middlewares(app) {
     app.use(cors());
     app.use(express.json());
     app.use(morgan("dev"))
@@ -34,7 +34,7 @@ class Server {
   async routes(app) {
     const appRoutes = require("./routes");
     app.use(appRoutes);
-  
+
   }
   // start server
   async initializeServer(app) {
