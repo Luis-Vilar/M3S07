@@ -1,23 +1,21 @@
-const { connection } = require("../database/connection");
-const { INTEGER, STRING, DATE } = require("sequelize");
+const connection = require("../database/connection");
+const { DataTypes } = require("sequelize");
 
 const User = connection.define(
   "User",
   {
     id: {
-      type: INTEGER,
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
       allowNull: false,
-      references: {
-        model: User,
-        key: "id",
-      },
     },
     name: {
-      type: STRING,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     email: {
-      type: STRING,
+      type: DataTypes.STRING,
       validate: {
         isEmail: {
           msg: "Este campo deve ser um email válido.",
@@ -29,7 +27,7 @@ const User = connection.define(
       allowNull: false,
     },
     password: {
-      type: STRING,
+      type: DataTypes.STRING,
       allowNull: false,
       validate: {
         len: {
@@ -38,14 +36,14 @@ const User = connection.define(
         },
         is: {
           args: [
-            "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[a-zA-Z\d!@#$%^&*]{8,}$",
+            "^(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[!@#$%^&*])[a-zA-Zd!@#$%^&*]{8,}$",
           ],
           msg: "Senha muito fraca",
         },
       },
     },
-    createdAt: DATE,
-    updatedAt: DATE,
+    createdAt: DataTypes.DATE,
+    updatedAt: DataTypes.DATE,
   },
   { underscored: true, paranoid: true } //Serve para escrevermos no banco de dados em Snake Case,
   //podendo persistir o camelCase do JS
@@ -54,3 +52,28 @@ const User = connection.define(
 module.exports = {
   User,
 };
+
+/*
+const Unidades = connection.define(
+  "unidade",
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+      allowNull: false,
+    },
+    nickname: DataTypes.STRING,
+    address: DataTypes.STRING,
+    brand: DataTypes.STRING,
+    model: DataTypes.STRING,
+    active: DataTypes.BOOLEAN,
+  },
+  { underscored: false, paranoid: false }
+);
+
+module.exports = {
+  Unidades,
+};
+
+*/
