@@ -13,27 +13,54 @@ module.exports = {
   async getGeracaoUnidade(req, res) {
     try {
       const { unidadeId } = req.params;
+      // Verifica se há registros de geração para a unidade
       const geracao = await GeracaoMensal.findAll({
         where: { unidade_id: unidadeId },
       });
-      if (!geracao) {
-        return res.status(400).json({ error: "Unidade não encontrada" });
+      if (geracao.length === 0) {
+        return res
+          .status(400)
+          .json({
+            error:
+              "Não há registros de geração para esta unidade ou a unidade não existe",
+          });
       }
+
       return res.status(200).json(geracao);
     } catch (error) {
       return res.status(500).json({ error: error.message });
     }
   },
-
   async createGeracao(req, res) {
     try {
       const { unidade_id, reference_date, total_generated } = req.body;
-      
+
       if (!unidade_id || !reference_date || !total_generated) {
         return res
           .status(400)
           .json({ error: "Preencha todos os campos obrigatórios" });
       }
+
+      // Convert unidade_id para um número
+      const unidadeId = Number(unidade_id);
+
+      // Convert reference_date para uma data
+      const [year, month] = reference_date.split("-");
+      if (month < 1 || month > 12) {
+        return res.status(400).json({ error: "Mês inválido" });
+      }
+      const referenceDate = new Date(Date.UTC(Number(year), Number(month) - 1));
+
+      // Verificar se já existe um registro com a mesma unidade_id e reference_date
+      const geracaoExiste = await GeracaoMensal.findOne({
+        where: { unidade_id: unidadeId, reference_date: referenceDate },
+      });
+
+      if (geracaoExiste) {
+        return res.status(400).json({ error: "Registro já existe" });
+      }
+
+      // Se não existe um registro, criar um novo
       const geracao = await GeracaoMensal.create(req.body);
       return res.status(201).json(geracao);
     } catch (error) {
