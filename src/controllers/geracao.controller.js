@@ -13,18 +13,24 @@ module.exports = {
   async getGeracaoUnidade(req, res) {
     try {
       const { unidadeId } = req.params;
+      // Verifica se há registros de geração para a unidade
       const geracao = await GeracaoMensal.findAll({
         where: { unidade_id: unidadeId },
       });
-      if (!geracao) {
-        return res.status(400).json({ error: "Unidade não encontrada" });
+      if (geracao.length === 0) {
+        return res
+          .status(400)
+          .json({
+            error:
+              "Não há registros de geração para esta unidade ou a unidade não existe",
+          });
       }
+
       return res.status(200).json(geracao);
     } catch (error) {
       return res.status(500).json({ error: error.message });
     }
   },
-
   async createGeracao(req, res) {
     try {
       const { unidade_id, reference_date, total_generated } = req.body;
