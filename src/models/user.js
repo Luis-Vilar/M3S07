@@ -17,6 +17,9 @@ const User = connection.define(
     email: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: {
+        msg: "Email já cadastrado no sistema.",
+      },
     },
     password: {
       type: DataTypes.STRING,
