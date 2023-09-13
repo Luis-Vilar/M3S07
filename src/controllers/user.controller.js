@@ -1,21 +1,93 @@
 const { User } = require("../models/user");
 const { sign } = require("jsonwebtoken");
 const { config } = require("dotenv");
+var validaEmail = require("../utils/validators");
 config();
 
 class UserController {
-  async createOneUser(request, response) {
+  async login(request, response) {
     try {
-      const { id, name, email, password } = request.body;
+      const { email, password } = request.body;
 
-      if (!id || !name || !email || !email || !password) {
+      const user = await User.findOne({
+        where: {
+          email,
+        },
+      });
+
+      if (!user) {
+        return response.status(404).send({
+          message: "Usuário não encontrado!",
+        });
+      }
+
+      if (user.password !== password) {
+        return response.status(401).send({
+          message: "Senha incorreta!",
+        });
+      }
+
+      const payload = { email: user.email };
+      const token = sign(payload, process.env.SECRET_JWT);
+      return response.status(200).send({
+        token: token,
+        message: "Login realizado com sucesso!",
+      });
+    } catch (error) {
+      console.error(error.message);
+      return response.status(400).send({
+        message: "Erro ao realizar o login!",
+        error: error.message,
+      });
+    }
+  }
+
+  async getAllUsers(request, response) {
+    try {
+      const data = await User.findAll({
+        order: [["id", "ASC"]],
+      });
+      return response.status(200).send(data);
+    } catch (error) {
+      console.error(error.message);
+      return response.status(400).send({
+        message: "Erro ao listar os usuários",
+        error: error.message,
+      });
+    }
+  }
+
+  async createUser(request, response) {
+    try {
+      const { name, email, password } = request.body;
+
+      if (!name || !email || !password) {
         return response.status(400).send({
           message: "Todos os campos são obrigatórios!",
         });
       }
 
+      const user = await User.findOne({
+        where: {
+          email,
+        },
+      });
+
+      if (user) {
+        return response.status(403).send({
+          message: "E-mail já cadastrado!",
+        });
+      }
+
+      const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+      if (!regex.test(email)) {
+        return response.status(403).send({
+          message:
+            "Formato de e-mail incorreto. Entre com um e-mail válido, ex: name@example.com!",
+        });
+      }
+
       const data = await User.create({
-        id,
         name,
         email,
         password,
@@ -27,49 +99,58 @@ class UserController {
     } catch (error) {
       console.error(error.message);
       return response.status(400).send({
-        message: "Erro ao criar o Usuário",
+        message: "Erro ao criar o usuário",
         error: error.message,
       });
     }
   }
 
-  async getOneUser(request, response) {
+  async updateUser(request, response) {
     try {
       const { id } = request.params;
-      const data = await User.findByPk(id);
-      return response.status(200).send(data);
-    } catch (error) {
-      console.error(error.message);
-      return response.status(400).send({
-        message: "Erro ao listar o Usuário",
-        error: error.message,
-      });
-    }
-  }
 
-  async getAllUsers(request, response) {
-    try {
-      const data = await Trainee.findAll({
-        order: [["id", "ASC"]],
+      const user = await User.findOne({
+        where: {
+          id,
+        },
       });
-      return response.status(200).send(data);
-    } catch (error) {
-      console.error(error.message);
-      return response.status(400).send({
-        message: "Erro ao listar os Usuários",
-        error: error.message,
+
+      if (!user) {
+        return response.status(400).send({
+          message: "Usuário não encontrado!",
+        });
+      }
+
+      const { name, email, password } = request.body;
+
+      if (!name || !email || !password) {
+        return response.status(400).send({
+          message: "Entre com todos os dados para serem alterados!",
+        });
+      }
+
+      const mail = await User.findOne({
+        where: {
+          email,
+        },
       });
-    }
-  }
 
-  async updateOneUser(request, response) {
-    try {
-      const { id } = request.params;
-      const { userId, name, email, password } = request.body;
+      if (mail) {
+        return response.status(403).send({
+          message: "E-mail já cadastrado!",
+        });
+      }
 
-      await User.update(
+      const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+      if (!regex.test(email)) {
+        return response.status(403).send({
+          message:
+            "Formato de e-mail incorreto. Entre com um e-mail válido, ex: name@example.com!",
+        });
+      }
+
+      const data = await User.update(
         {
-          userId,
           name,
           email,
           password,
@@ -82,25 +163,31 @@ class UserController {
       );
 
       return response
-        .status(201)
-        .send({ message: "Usuário atualizado com sucesso!" });
+        .status(200)
+        .send({ data, message: "Dados atualizados com sucesso!" });
     } catch (error) {
       console.error(error.message);
       return response.status(400).send({
-        message: "Erro ao criar o Usuário",
+        message: "Impossível atualizar as informações!",
         error: error.message,
       });
     }
   }
 
-  async deleteOneUser(request, response) {
+  async deleteUser(request, response) {
     try {
       const { id } = request.params;
-      await User.destroy({
+      const user = await User.destroy({
         where: {
           id,
         },
       });
+
+      if (!user) {
+        return response.status(400).send({
+          message: `Usuário com o ID ${id} não encontrado!`,
+        });
+      }
 
       return response
         .status(204)
@@ -108,38 +195,7 @@ class UserController {
     } catch (error) {
       console.error(error.message);
       return response.status(400).send({
-        message: "Impossível excluir o usuário!",
-        error: error.message,
-      });
-    }
-  }
-
-  async userLogin(request, response) {
-    try {
-      const { email, password } = request.body;
-
-      const user = await User.findOne({
-        where: {
-          email,
-          password,
-        },
-      });
-
-      if (!user) {
-        return response.status(400).send({
-          message: "Usuário ou senha inválidos!",
-        });
-      }
-      const payload = {"email" : user.email};
-      const token = sign(payload, process.env.SECRET_JWT, { expiresIn: "1h" });
-      return response.status(200).send({
-        "token": token,
-        message: "Login realizado com sucesso!",
-      });
-    } catch (error) {
-      console.error(error.message);
-      return response.status(400).send({
-        message: "Erro ao realizar o login!",
+        message: "Impossível excluir o usuario!",
         error: error.message,
       });
     }
