@@ -1,7 +1,7 @@
-const { connection } = require("../database/connection");
+const  connection  = require("../database/connection");
 const { INTEGER, DATE } = require("sequelize");
 
-const GeraMensal = connection.define("geracoes", {
+const GeracaoMensal = connection.define("geracoes", {
     id: {
         type: INTEGER,
         primaryKey: true,
@@ -17,12 +17,19 @@ const GeraMensal = connection.define("geracoes", {
         type: INTEGER,
         allowNull: true,
     },
+    unidade_id: {
+        type: INTEGER,
+        allowNull: false,
+        references: {
+          model: "unidades", // Nome da tabela de referência
+          key: "id", // Nome da coluna de referência na tabela 'unidades'
+        },
+    },
     createdAt: DATE,
     updatedAt: DATE,
 },
 { underscored: true, paranoid: true } 
 );
 
-module.exports = {
-    GeraMensal
-};
+module.exports = GeracaoMensal
+
