@@ -16,31 +16,11 @@ const User = connection.define(
     },
     email: {
       type: DataTypes.STRING,
-      validate: {
-        isEmail: {
-          msg: "Este campo deve ser um email válido.",
-        },
-      },
-      unique: {
-        msg: "Email já cadastrado.",
-      },
       allowNull: false,
     },
     password: {
       type: DataTypes.STRING,
       allowNull: false,
-      validate: {
-        len: {
-          args: [8, 20],
-          msg: "Este campo deve ter entre 6 e 20 caracteres.",
-        },
-        is: {
-          args: [
-            "^(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[!@#$%^&*])[a-zA-Zd!@#$%^&*]{8,}$",
-          ],
-          msg: "Senha muito fraca",
-        },
-      },
     },
     createdAt: DataTypes.DATE,
     updatedAt: DataTypes.DATE,
