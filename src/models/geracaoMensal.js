@@ -17,6 +17,14 @@ const GeracaoMensal = connection.define("geracoes", {
         type: INTEGER,
         allowNull: true,
     },
+    unidade_id: {
+        type: INTEGER,
+        allowNull: false,
+        references: {
+          model: "unidades", // Nome da tabela de referência
+          key: "id", // Nome da coluna de referência na tabela 'unidades'
+        },
+    },
     createdAt: DATE,
     updatedAt: DATE,
 },
