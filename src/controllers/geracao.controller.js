@@ -40,6 +40,9 @@ module.exports = {
 
       // Convert reference_date para uma data
       const [year, month] = reference_date.split("-");
+      if (month < 1 || month > 12) {
+        return res.status(400).json({ error: "Mês inválido" });
+      }
       const referenceDate = new Date(Date.UTC(Number(year), Number(month) - 1));
 
       // Verificar se já existe um registro com a mesma unidade_id e reference_date
