@@ -1,4 +1,4 @@
-const { GeracaoMensal } = require("../models/geracaoMensal");
+const  GeracaoMensal  = require("../models/geracaoMensal");
 
 module.exports = {
     async getGeracao(req, res) {
