@@ -87,6 +87,14 @@ class UserController {
         });
       }
 
+      const regexPassword = /^(?=.*[A-Z])(?=.*[0-9])(?=.*\W)[a-zA-Z0-9\W]{8,}$/;
+      if (!regexPassword.test(password)) {
+        return response.status(403).send({
+          message:
+            "A senha deve ter no mínimo 8 caracteres, incluindo 1 letra maiúscula, 1 letra maiúscula, 1 número e 1 caractere especial",
+        });
+      }
+
       const data = await User.create({
         name,
         email,
@@ -135,17 +143,19 @@ class UserController {
         },
       });
 
-      if (mail) {
-        return response.status(403).send({
-          message: "E-mail já cadastrado!",
-        });
-      }
-
       const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
       if (!regex.test(email)) {
         return response.status(403).send({
           message:
             "Formato de e-mail incorreto. Entre com um e-mail válido, ex: name@example.com!",
+        });
+      }
+      
+      const regexPassword = /^(?=.*[A-Z])(?=.*[0-9])(?=.*\W)[a-zA-Z0-9\W]{8,}$/;
+      if (!regexPassword.test(password)) {
+        return response.status(403).send({
+          message:
+            "A senha deve ter no mínimo 8 caracteres, incluindo 1 letra maiúscula, 1 letra maiúscula, 1 número e 1 caractere especial",
         });
       }
 
