@@ -16,9 +16,9 @@ export const LancamentoGeracaoMensal = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/unidades")
+      .get("http://localhost:3000/api/v1/unidades")
       .then((response) => {
-        setUnidades(response.data);
+        setUnidades(response.data.unidades);
       })
       .catch((error) => {
         console.log(error);
@@ -42,9 +42,8 @@ export const LancamentoGeracaoMensal = () => {
 
     if (formulario) {
       axios
-        .post("http://localhost:3000/lancamentos", lancamento)
+        .post("http://localhost:3000/api/v1/geracao", lancamento)
         .then((response) => {
-          console.log(response);
           alert("Lançamento realizado com sucesso!");
           limparCampos();
         })
@@ -77,7 +76,7 @@ export const LancamentoGeracaoMensal = () => {
                 <option value="">Escolha a unidade</option>
                 {unidades.map((unidade) => (
                   <option key={unidade.id} value={unidade.id}>
-                    {unidade.apelido}
+                    {unidade.name}
                   </option>
                 ))}
               </select>

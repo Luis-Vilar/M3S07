@@ -26,15 +26,15 @@ export const LineChart = () => {
   // Faz a busca de informações no endpoint unidades
   const buscaUnidades = () => {
     axios
-      .get("http://localhost:3000/unidades")
-      .then((response) => setListaUnidades(response.data))
+      .get("http://localhost:3000/api/v1/unidades")
+      .then((response) => setListaUnidades(response.data.unidades))
       .catch((error) => alert(error));
   };
 
   // Faz a busca de informações no endpoint lancamentos
   const buscaListaLancamentos = () => {
     axios
-      .get("http://localhost:3000/lancamentos")
+      .get("http://localhost:3000/api/v1/geracao")
       .then((response) => setListaLancamentos(response.data))
       .catch((error) => alert(error));
   };
@@ -56,10 +56,10 @@ export const LineChart = () => {
 
     //
     if (estaAtiva) {
-      if (somaLancamentos[element.data]) {
-        somaLancamentos[element.data] += element.total;
+      if (somaLancamentos[element.reference_date]) {
+        somaLancamentos[element.reference_date] += element.total_generated;
       } else {
-        somaLancamentos[element.data] = element.total;
+        somaLancamentos[element.reference_date] = element.total_generated;
       }
     }
 

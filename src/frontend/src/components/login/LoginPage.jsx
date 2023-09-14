@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FiLock } from "react-icons/fi";
 import { PiEnvelopeLight } from "react-icons/pi";
-import usersData from "../../../database/data.json";
+// import usersData from "../../../database/data.json";
 import 'bootstrap/dist/js/bootstrap.bundle.min'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./LoginPage.css";

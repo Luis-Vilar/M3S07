@@ -44,7 +44,7 @@ export const CadastroUnidade = ({ mudarFormulario }) => {
       className: 'checkbox-label',
     },
   ];
-  const ENDPOINT_UNIDADES = 'http://localhost:3000/unidades';
+  const ENDPOINT_UNIDADES = 'http://localhost:3000/api/v1/unidades';
 
   const validarInputs = (formData) => {
     const { apelido, local, marca, modelo } = formData;
@@ -73,7 +73,15 @@ export const CadastroUnidade = ({ mudarFormulario }) => {
   };
 
   const handleUnidadeSubmit = async (formData) => {
-    validarInputs(formData) && (await postNovaUnidade(formData));
+    const postData = {
+      nickname: formData.apelido,
+      address: formData.local,
+      brand: formData.marca,
+      model: formData.modelo,
+      active: formData.ativa,
+    };
+
+    validarInputs(formData) && (await postNovaUnidade(postData));
   };
 
   return (

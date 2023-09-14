@@ -7,11 +7,11 @@ export default function ListaUnidades({ mudarFormulario }) {
   const [data, setData] = useState([]);
 
   const fetchData = () => {
-    fetch(`http://localhost:3000/unidades`)
+    fetch(`http://localhost:3000/api/v1/unidades`)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        setData(data);
+        setData(data.unidades);
       })
       .catch((err) => {
         console.log(err.message);
@@ -40,10 +40,10 @@ export default function ListaUnidades({ mudarFormulario }) {
           {data.map((item, index) => (
             <tr key={index}>
               <td>{item.id}</td>
-              <td>{item.apelido}</td>
-              <td>{item.local}</td>
-              <td>{item.marca}</td>
-              <td>{item.modelo}</td>
+              <td>{item.nickname}</td>
+              <td>{item.address}</td>
+              <td>{item.brand}</td>
+              <td>{item.model}</td>
               <td>
                 <Button variant="success" onClick={() => editarUnidade(item.id)}>
                   Editar
