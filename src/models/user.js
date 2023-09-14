@@ -17,6 +17,11 @@ const User = connection.define(
     email: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        isEmail: {
+          msg: "O e-mail deve ser válido.",
+        },
+      },
       unique: {
         msg: "Email já cadastrado no sistema.",
       },
