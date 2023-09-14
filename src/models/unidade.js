@@ -3,11 +3,11 @@ const { DataTypes } = require("sequelize");
 
 const Unidades = connection.define("unidade", {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false },
-  nickname: DataTypes.STRING,
-  address: DataTypes.STRING,
-  brand: DataTypes.STRING,
-  model: DataTypes.STRING,
-  active: DataTypes.BOOLEAN
+  nickname: {type : DataTypes.STRING, allowNull: false},
+  address: {type : DataTypes.STRING, allowNull: false},
+  brand: {type : DataTypes.STRING, allowNull: false},
+  model: {type : DataTypes.STRING, allowNull: false},
+  active:{type : DataTypes.BOOLEAN, allowNull: false}
 },
   { underscored: false, paranoid: false }
 );
