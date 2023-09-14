@@ -94,8 +94,16 @@ module.exports = {
       // Convert reference_date para uma data
       //Falta validar o formato da data (yyyy-mm)
       const [year, month] = reference_date.split("-");
+
+      if (!year || !month) {
+        return res.status(400).json({ error: "Data inválida" });
+      }
       if (month < 1 || month > 12) {
         return res.status(400).json({ error: "Mês inválido" });
+      }
+
+      if (year < 2023 || year > 2100) {
+        return res.status(400).json({ error: "Ano inválido" });
       }
       const referenceDate = new Date(Date.UTC(Number(year), Number(month) - 1));
 
