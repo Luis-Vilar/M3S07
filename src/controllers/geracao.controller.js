@@ -1,4 +1,5 @@
-const GeracaoMensal = require("../models/geracaoMensal");
+const {GeracaoMensal} = require("../models/geracaoMensal");
+const { Unidades} = require("../models/unidade.js");
 
 module.exports = {
   async getGeracao(req, res) {
@@ -18,12 +19,10 @@ module.exports = {
         where: { unidade_id: unidadeId },
       });
       if (geracao.length === 0) {
-        return res
-          .status(400)
-          .json({
-            error:
-              "Não há registros de geração para esta unidade ou a unidade não existe",
-          });
+        return res.status(400).json({
+          error:
+            "Não há registros de geração para esta unidade ou a unidade não existe",
+        });
       }
 
       return res.status(200).json(geracao);
@@ -39,6 +38,15 @@ module.exports = {
         return res
           .status(400)
           .json({ error: "Preencha todos os campos obrigatórios" });
+      }
+      // verificar se existe uma unidade com o id informado
+      const unidade = await Unidades.findOne({
+        where: {
+          id: unidade_id,
+        },
+      });
+      if (!unidade) {
+        return res.status(400).json({ error: "Unidade não encontrada" });
       }
 
       // Convert unidade_id para um número

@@ -31,5 +31,5 @@ const GeracaoMensal = connection.define("geracoes", {
 { underscored: true, paranoid: true } 
 );
 
-module.exports = GeracaoMensal
+module.exports = {GeracaoMensal}
 
