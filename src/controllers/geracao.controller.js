@@ -1,5 +1,5 @@
-const {GeracaoMensal} = require("../models/geracaoMensal");
-const { Unidades} = require("../models/unidade.js");
+const { GeracaoMensal } = require("../models/geracaoMensal");
+const { Unidades } = require("../models/unidade.js");
 
 module.exports = {
   async getGeracao(req, res) {
@@ -79,9 +79,43 @@ module.exports = {
   async updateGeracao(req, res) {
     try {
       const { id } = req.params;
-      const [updated] = await GeracaoMensal.update(req.body, {
+      const { reference_date, total_generated } = req.body;
+
+      if (!id) {
+        return res.status(400).json({ error: "Id inválido" });
+      }
+
+      if (!reference_date || !total_generated) {
+        return res
+          .status(400)
+          .json({ error: "Preencha todos os campos obrigatórios" });
+      }
+
+      // Convert reference_date para uma data
+      //Falta validar o formato da data (yyyy-mm)
+      const [year, month] = reference_date.split("-");
+      if (month < 1 || month > 12) {
+        return res.status(400).json({ error: "Mês inválido" });
+      }
+      const referenceDate = new Date(Date.UTC(Number(year), Number(month) - 1));
+
+      const geracao = await GeracaoMensal.findOne({
         where: { id: id },
       });
+
+      if (!geracao) {
+        return res.status(400).json({ error: "Registro não encontrado" });
+      }
+
+      // Atualizar o registro
+      const updated = await GeracaoMensal.update(
+        {
+          reference_date: referenceDate,
+          total_generated: total_generated,
+        },
+        { where: { id: id } }
+      );
+
       if (updated) {
         const updatedGeracao = await GeracaoMensal.findOne({
           where: { id: id },
