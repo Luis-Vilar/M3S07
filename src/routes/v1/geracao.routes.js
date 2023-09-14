@@ -4,7 +4,7 @@ const { auth } = require("../../middleware/auth");
 
 geracaoRoutes.get("/api/v1/geracao", auth, geracaoController.getGeracao);
 geracaoRoutes.get("/api/v1/geracao/:unidadeId", auth ,geracaoController.getGeracaoUnidade);
-geracaoRoutes.post("/api/v1/geracao", auth, geracaoController.createGeracao);
+geracaoRoutes.post("/api/v1/geracao",  geracaoController.createGeracao);
 geracaoRoutes.put("/api/v1/geracao/:id",  geracaoController.updateGeracao);
 geracaoRoutes.delete("/api/v1/geracao/:id", auth , geracaoController.deleteGeracao);
 
