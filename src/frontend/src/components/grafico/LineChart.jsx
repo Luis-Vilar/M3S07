@@ -37,11 +37,12 @@ export const LineChart = () => {
       .get("http://localhost:3000/api/v1/geracao")
       .then((response) => setListaLancamentos(response.data))
       .catch((error) => alert(error));
+      console.log(listaLancamentos) 
   };
 
   // Lógica para cálculo dos dados do gráfico
   const unidadesAtivas = listaUnidades.filter(
-    (unidade) => unidade.ativa == true
+    (unidade) => unidade.active == true
   );
 
   // Passa os dados do array para o objeto que vai conter os dados do gráfico
@@ -49,7 +50,7 @@ export const LineChart = () => {
   listaLancamentos.forEach((element) => {
     let estaAtiva = false
     Object.values(unidadesAtivas).forEach(unidade => {
-      if (unidade.id === element.id_unidade) {
+      if (unidade.id === element.unidade_id) {
         estaAtiva = true
       }
     })

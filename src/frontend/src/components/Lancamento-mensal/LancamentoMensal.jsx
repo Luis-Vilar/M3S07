@@ -9,16 +9,16 @@ export const LancamentoGeracaoMensal = () => {
   const [total, setTotal] = useState("");
   const [formulario, setFormulario] = useState(false);
   const lancamento = {
-    id_unidade: unidadeGeradora,
-    data: data,
-    total: total,
+    unidade_id: unidadeGeradora,
+    reference_date: data,
+    total_generated: total,
   };
 
   useEffect(() => {
     axios
       .get("http://localhost:3000/api/v1/unidades")
       .then((response) => {
-        setUnidades(response.data.unidades);
+        setUnidades([...response.data.unidades]);
       })
       .catch((error) => {
         console.log(error);
@@ -41,6 +41,7 @@ export const LancamentoGeracaoMensal = () => {
     event.preventDefault();
 
     if (formulario) {
+      console.log(lancamento)
       axios
         .post("http://localhost:3000/api/v1/geracao", lancamento)
         .then((response) => {
@@ -76,7 +77,7 @@ export const LancamentoGeracaoMensal = () => {
                 <option value="">Escolha a unidade</option>
                 {unidades.map((unidade) => (
                   <option key={unidade.id} value={unidade.id}>
-                    {unidade.name}
+                    {unidade.nickname}
                   </option>
                 ))}
               </select>
