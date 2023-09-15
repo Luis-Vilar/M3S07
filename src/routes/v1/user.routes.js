@@ -9,7 +9,7 @@ const {
   login,
 } = require("../../controllers/user.controller");
 
-userRoutes.get("/api/v1/login", login);
+userRoutes.post("/api/v1/login", login);
 userRoutes.get("/api/v1/usuario",  getAllUsers);
 
 userRoutes.post("/api/v1/usuario",  createUser);
