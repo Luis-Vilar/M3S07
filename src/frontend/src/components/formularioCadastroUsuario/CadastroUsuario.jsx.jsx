@@ -37,8 +37,14 @@ const CadastroUsuario = () => {
             navigate("/");
           })
           .catch((error) => {
-            console.error(error);
-            alert("Erro ao cadastrar!");
+            if (error.response && error.response.status === 403) {
+                // Se a resposta da API for um status 403 (Forbidden) com a mensagem de erro,
+                // exiba a mensagem de erro retornada pela API
+                alert(`Erro ao cadastrar usuário! ${error.response.data.message}`);
+              } else {
+                // Outros erros não relacionados à validação da senha
+                alert("Erro ao cadastrar usuário! Por favor, tente novamente.");
+              }
           });
       };
       
