@@ -21,9 +21,13 @@
   align-items: center;
 }
 .topBar h1 {
-  font-size: 36px;
-  color: #000000fd;
-  margin-left: 350px;
+    color: var(--color-black, #374557);
+    font-family: Poppins;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin-left: 350px;
 }
 
 .content {
