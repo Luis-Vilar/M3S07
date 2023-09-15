@@ -6,6 +6,7 @@ import { LoginPage } from "../pages/login/LoginPage";
 import { Dashboard } from "../pages/dashboard/Dashboard";
 import { UnidadeGeradora } from "../pages/unidade-geradora/UnidadeGeradora";
 import { LancamentoMensal } from "../pages/lancamento-mensal/LancamentoMensal";
+import  CadastroUsuarioPage  from "../pages/cadastroUsuario/index";
 import Error from "../pages/error/Error";
 
 export default function AppRotas() {
@@ -14,6 +15,7 @@ export default function AppRotas() {
       <MenuLateral>
         <Routes>
           <Route path="/" element={<LoginPage />} />
+          <Route path="cadastro-usuario" element={<CadastroUsuarioPage />} />
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="unidade-geradora" element={<UnidadeGeradora />} />
           <Route path="lancamento-mensal" element={<LancamentoMensal />} />
