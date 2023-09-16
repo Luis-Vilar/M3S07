@@ -4,7 +4,6 @@ import { Table, Button } from "react-bootstrap";
 import styles from "./listaUnidade.module.css";
 
 export default function ListaUnidades({ mudarFormulario }) {
-
   const [data, setData] = useState([]);
 
   const fetchData = () => {
@@ -23,9 +22,9 @@ export default function ListaUnidades({ mudarFormulario }) {
     fetchData();
   }, []);
 
-  const editarUnidade = () => console.log("editarUnidade")
+  const editarUnidade = () => console.log("editarUnidade");
 
-  const removerUnidade = () => console.log("removerUnidade")
+  const removerUnidade = () => console.log("removerUnidade");
 
   return (
     <div>
@@ -47,12 +46,20 @@ export default function ListaUnidades({ mudarFormulario }) {
               <td>{item.brand}</td>
               <td>{item.model}</td>
               <td>
-                <Button className={styles.btnverde} variant="success" onClick={() => editarUnidade(item.id)}>
+                <Button
+                  className={styles.btnverde}
+                  variant="success"
+                  onClick={() => editarUnidade(item.id)}
+                >
                   Editar
                 </Button>
               </td>
               <td>
-                <Button className={styles.btnvermelho} variant="danger" onClick={() => removerUnidade(item.id)}>
+                <Button
+                  className={styles.btnvermelho}
+                  variant="danger"
+                  onClick={() => removerUnidade(item.id)}
+                >
                   Remover
                 </Button>
               </td>
@@ -61,7 +68,11 @@ export default function ListaUnidades({ mudarFormulario }) {
         </tbody>
       </Table>
       <br />
-      <Button className={styles.btnazul} onClick={() => mudarFormulario()}>Nova Unidade</Button>
+      <div className={styles.divbtn}>
+        <Button className={styles.btnazul} onClick={() => mudarFormulario()}>
+          Nova Unidade
+        </Button>
+      </div>
     </div>
   );
 }

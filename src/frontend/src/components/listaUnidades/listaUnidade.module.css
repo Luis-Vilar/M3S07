@@ -6,7 +6,6 @@
     margin: 10px;
 }
 
-
 .table {
     width: 100%;
     border-collapse: collapse;
@@ -19,7 +18,8 @@
     font-family: Poppins;
     color: #374557;
     text-align: left;
-    padding: 10px;
+    padding: 5px;
+    margin: 5px;
 }
 
 .table tr:nth-child(even) {
@@ -29,10 +29,12 @@
 .table th {
     font-family: Poppins;
     color: #374557;
+    line-height: 24px; /* 150% */
 }
 
 .btnverde{
-    background-color: #0bd196;
+    background: #8DB51B;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
     color: #fff;
     font-family: Poppins;
     font-size: 1rem;
@@ -53,7 +55,8 @@
 }
 
 .btnvermelho{
-    background-color: #e90707;
+    background: #D82D56;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
     color: #fff;
     font-size: 1rem;
     font-family: Poppins;
@@ -75,6 +78,7 @@
 
 .btnazul{
     background: #4c5df1;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
     color: #fff;
     font-size: 1rem;
     font-family: Poppins;
@@ -86,13 +90,20 @@
     width: 170px;
     gap: 24px;
     border-radius: 10px;
+    
 }
 
 .btnazul:hover{
-    background-color: #075a8c;
+    background-color: #071b8c;
 }
 
 .btnazul:focus{
     outline: none;
 }
 
+.divbtn{
+    display: flex;
+    flex-direction: row;
+    justify-content:end;
+    align-items: center;
+}
