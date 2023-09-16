@@ -25,6 +25,7 @@
 .btnverde{
     background-color: #0bd196;
     color: #fff;
+    font-family: Poppins;
     font-size: 1rem;
     font-weight: 500;
     border-radius: 5px;
@@ -46,6 +47,7 @@
     background-color: #e90707;
     color: #fff;
     font-size: 1rem;
+    font-family: Poppins;
     font-weight: 500;
     border-radius: 5px;
     border: none;
@@ -63,15 +65,18 @@
 }
 
 .btnazul{
-    background-color: #0b7cd1;
+    background: #4c5df1;
     color: #fff;
     font-size: 1rem;
+    font-family: Poppins;
     font-weight: 500;
     border-radius: 5px;
     border: none;
     padding: 10px;
     margin: 5px;
     width: 170px;
+    gap: 24px;
+    border-radius: 10px;
 }
 
 .btnazul:hover{
