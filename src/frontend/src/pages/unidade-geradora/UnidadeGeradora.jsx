@@ -14,7 +14,7 @@ export const UnidadeGeradora = () => {
     <CadastroUnidade mudarFormulario={mudarFormulario} />
   ) : (
     <>
-      <h3>Lista de unidades</h3>
+      
       <ListaUnidades mudarFormulario={mudarFormulario} />
     </>
   );

@@ -29,6 +29,7 @@ export default function ListaUnidades({ mudarFormulario }) {
 
   return (
     <div>
+      <h3 className={styles.titulo}>Lista de unidades</h3>
       <Table className={styles.table}>
         <tbody>
           <tr>
