@@ -1,4 +1,4 @@
-import "./LineChart.css"
+import "./LineChart.css";
 import { useState, useEffect } from "react";
 import {
   Chart as ChartJS,
@@ -16,6 +16,7 @@ import axios from "axios";
 export const LineChart = () => {
   const [listaUnidades, setListaUnidades] = useState([]);
   const [listaLancamentos, setListaLancamentos] = useState([]);
+  const token = localStorage.getItem("token");
 
   // Realiza a busca dos dados ao carregar a página
   useEffect(() => {
@@ -26,7 +27,12 @@ export const LineChart = () => {
   // Faz a busca de informações no endpoint unidades
   const buscaUnidades = () => {
     axios
-      .get("http://localhost:3000/api/v1/unidades")
+      .get("http://localhost:3000/api/v1/unidades", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+      })
       .then((response) => setListaUnidades(response.data.unidades))
       .catch((error) => alert(error));
   };
@@ -34,10 +40,15 @@ export const LineChart = () => {
   // Faz a busca de informações no endpoint lancamentos
   const buscaListaLancamentos = () => {
     axios
-      .get("http://localhost:3000/api/v1/geracao")
+      .get("http://localhost:3000/api/v1/geracao",{
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+      })
       .then((response) => setListaLancamentos(response.data))
       .catch((error) => alert(error));
-      console.log(listaLancamentos) 
+    console.log(listaLancamentos);
   };
 
   // Lógica para cálculo dos dados do gráfico
@@ -48,12 +59,12 @@ export const LineChart = () => {
   // Passa os dados do array para o objeto que vai conter os dados do gráfico
   let somaLancamentos = {};
   listaLancamentos.forEach((element) => {
-    let estaAtiva = false
-    Object.values(unidadesAtivas).forEach(unidade => {
+    let estaAtiva = false;
+    Object.values(unidadesAtivas).forEach((unidade) => {
       if (unidade.id === element.unidade_id) {
-        estaAtiva = true
+        estaAtiva = true;
       }
-    })
+    });
 
     //
     if (estaAtiva) {
@@ -78,7 +89,7 @@ export const LineChart = () => {
     PointElement,
     Legend,
     Title,
-    Tooltip,
+    Tooltip
   );
 
   // Declaração dos dados usados e configurações visuais do gráfico
@@ -103,19 +114,19 @@ export const LineChart = () => {
     plugins: {
       legend: {
         onClick: false,
-        align: 'start',
+        align: "start",
         labels: {
           boxWidth: 0,
           font: {
             size: 30,
-          }
-        }
+          },
+        },
       },
     },
     scales: {
       y: {
         min: 0,
-        position: 'right'
+        position: "right",
       },
     },
   };
@@ -124,5 +135,5 @@ export const LineChart = () => {
     <div id="lineChart">
       <Line options={options} data={data} />
     </div>
-  )
+  );
 };
