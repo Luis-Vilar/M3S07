@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Table, Button } from "react-bootstrap";
+import styles from "./listaUnidade.module.css";
 
 export default function ListaUnidades({ mudarFormulario }) {
 
@@ -28,7 +29,7 @@ export default function ListaUnidades({ mudarFormulario }) {
 
   return (
     <div>
-      <Table className="my-4">
+      <Table className={styles.table}>
         <tbody>
           <tr>
             <th>ID</th>
@@ -45,12 +46,12 @@ export default function ListaUnidades({ mudarFormulario }) {
               <td>{item.brand}</td>
               <td>{item.model}</td>
               <td>
-                <Button variant="success" onClick={() => editarUnidade(item.id)}>
+                <Button className={styles.btnverde} variant="success" onClick={() => editarUnidade(item.id)}>
                   Editar
                 </Button>
               </td>
               <td>
-                <Button variant="danger" onClick={() => removerUnidade(item.id)}>
+                <Button className={styles.btnvermelho} variant="danger" onClick={() => removerUnidade(item.id)}>
                   Remover
                 </Button>
               </td>
@@ -59,7 +60,7 @@ export default function ListaUnidades({ mudarFormulario }) {
         </tbody>
       </Table>
       <br />
-      <Button onClick={() => mudarFormulario()}>Nova Unidade</Button>
+      <Button className={styles.btnazul} onClick={() => mudarFormulario()}>Nova Unidade</Button>
     </div>
   );
 }
