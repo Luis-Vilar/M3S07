@@ -5,9 +5,15 @@ import styles from "./listaUnidade.module.css";
 
 export default function ListaUnidades({ mudarFormulario }) {
   const [data, setData] = useState([]);
+  const token = localStorage.getItem("token");
 
   const fetchData = () => {
-    fetch(`http://localhost:3000/api/v1/unidades`)
+    fetch(`http://localhost:3000/api/v1/unidades`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
+    })
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
