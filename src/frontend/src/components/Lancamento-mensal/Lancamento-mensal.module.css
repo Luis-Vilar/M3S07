@@ -93,6 +93,11 @@ input {
   align-items: center;
 }
 
+.data input {
+  width: 250.575px;
+  height: 59px;
+}
+
 .total {
   display: flex;
   flex-direction: column;

@@ -1,0 +1,109 @@
+.titulo{
+    font-family: Poppins;
+    font-size: 1.8rem;
+    font-weight: 500;
+    color: #374557;
+    margin: 10px;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    border: 2px solid #ddd;
+}
+
+.table th, .table td {
+    text-align: left;
+    font-family: Poppins;
+    color: #374557;
+    text-align: left;
+    padding: 5px;
+    margin: 5px;
+}
+
+.table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.table th {
+    font-family: Poppins;
+    color: #374557;
+    line-height: 24px; /* 150% */
+}
+
+.btnverde{
+    background: #8DB51B;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    color: #fff;
+    font-family: Poppins;
+    font-size: 1rem;
+    font-weight: 500;
+    border-radius: 5px;
+    border: none;
+    padding: 5px;
+    margin: 5px;
+    width: 100px;
+}
+
+.btnverde:hover{
+    background-color: #04976b;
+}
+
+.btnverde:focus{
+    outline: none;
+}
+
+.btnvermelho{
+    background: #D82D56;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    color: #fff;
+    font-size: 1rem;
+    font-family: Poppins;
+    font-weight: 500;
+    border-radius: 5px;
+    border: none;
+    padding: 5px;
+    margin: 5px;
+    width: 100px;
+}
+
+.btnvermelho:hover{
+    background-color: #b70505;
+}
+
+.btnvermelho:focus{
+    outline: none;
+}
+
+.btnazul{
+    background: #4c5df1;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    color: #fff;
+    font-size: 1rem;
+    font-family: Poppins;
+    font-weight: 500;
+    border-radius: 5px;
+    border: none;
+    padding: 10px;
+    margin: 5px;
+    width: 170px;
+    gap: 24px;
+    border-radius: 10px;
+    
+}
+
+.btnazul:hover{
+    background-color: #071b8c;
+}
+
+.btnazul:focus{
+    outline: none;
+}
+
+.divbtn{
+    display: flex;
+    flex-direction: row;
+    justify-content:end;
+    align-items: center;
+}
