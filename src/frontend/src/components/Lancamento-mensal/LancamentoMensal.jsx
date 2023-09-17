@@ -13,10 +13,15 @@ export const LancamentoGeracaoMensal = () => {
     reference_date: data,
     total_generated: total,
   };
-
+  const token = localStorage.getItem("token");
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/v1/unidades")
+      .get("http://localhost:3000/api/v1/unidades", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+      })
       .then((response) => {
         setUnidades([...response.data.unidades]);
       })
@@ -41,9 +46,14 @@ export const LancamentoGeracaoMensal = () => {
     event.preventDefault();
 
     if (formulario) {
-      console.log(lancamento)
+      console.log(lancamento);
       axios
-        .post("http://localhost:3000/api/v1/geracao", lancamento)
+        .post("http://localhost:3000/api/v1/geracao", lancamento, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        })
         .then((response) => {
           alert("Lançamento realizado com sucesso!");
           limparCampos();
@@ -64,49 +74,49 @@ export const LancamentoGeracaoMensal = () => {
 
   return (
     <div className={styles.formulario}>
-        <form onSubmit={handleSubmit}>
-          <div className={styles.gridContainer}>
-            <div className={styles.unidade}>
-              <label>Unidade Geradora</label>
-              <select
-                name=""
-                id=""
-                value={unidadeGeradora}
-                onChange={(e) => setUnidadeGeradora(e.target.value)}
-              >
-                <option value="">Escolha a unidade</option>
-                {unidades.map((unidade) => (
-                  <option key={unidade.id} value={unidade.id}>
-                    {unidade.nickname}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className={styles.data}>
-              <label htmlFor="">Mês/ano</label>
-              <input
-                type="month"
-                name="data"
-                value={data}
-                onChange={(e) => setData(e.target.value)}
-              />
-            </div>
-            <div className={styles.total}>
-              <label htmlFor="">Total kw gerado</label>
-              <input
-                type="number"
-                name="kw"
-                value={total}
-                onChange={(e) => setTotal(e.target.valueAsNumber)}
-              />
-            </div>
-            <div className={styles.botao}>
-              <button type="submit" className="btn btn-primary">
-                Cadastro
-              </button>
-            </div>
+      <form onSubmit={handleSubmit}>
+        <div className={styles.gridContainer}>
+          <div className={styles.unidade}>
+            <label>Unidade Geradora</label>
+            <select
+              name=""
+              id=""
+              value={unidadeGeradora}
+              onChange={(e) => setUnidadeGeradora(e.target.value)}
+            >
+              <option value="">Escolha a unidade</option>
+              {unidades.map((unidade) => (
+                <option key={unidade.id} value={unidade.id}>
+                  {unidade.nickname}
+                </option>
+              ))}
+            </select>
           </div>
-        </form>
-      </div>
+          <div className={styles.data}>
+            <label htmlFor="">Mês/ano</label>
+            <input
+              type="month"
+              name="data"
+              value={data}
+              onChange={(e) => setData(e.target.value)}
+            />
+          </div>
+          <div className={styles.total}>
+            <label htmlFor="">Total kw gerado</label>
+            <input
+              type="number"
+              name="kw"
+              value={total}
+              onChange={(e) => setTotal(e.target.valueAsNumber)}
+            />
+          </div>
+          <div className={styles.botao}>
+            <button type="submit" className="btn btn-primary">
+              Cadastro
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
   );
 };

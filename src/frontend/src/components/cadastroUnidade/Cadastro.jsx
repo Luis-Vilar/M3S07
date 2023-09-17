@@ -1,55 +1,56 @@
-import { useState } from 'react';
-import axios from 'axios';
-import { Form } from '../form/Form';
-import './Cadastro.css';
-import PropTypes from 'prop-types';
+import { useState } from "react";
+import axios from "axios";
+import { Form } from "../form/Form";
+import "./Cadastro.css";
+import PropTypes from "prop-types";
 
 export const CadastroUnidade = ({ mudarFormulario }) => {
   const [error, setError] = useState(false);
+  const token = localStorage.getItem("token");
 
   const unidadeFields = [
     {
-      type: 'text',
-      label: 'Apelido',
-      name: 'apelido',
-      placeholder: 'Painel 1',
-      inputClassName: 'input-pequeno',
+      type: "text",
+      label: "Apelido",
+      name: "apelido",
+      placeholder: "Painel 1",
+      inputClassName: "input-pequeno",
     },
     {
-      type: 'text',
-      label: 'Local',
-      name: 'local',
-      placeholder: 'Rua Alberto 430',
-      inputClassName: 'input-extra-grande',
+      type: "text",
+      label: "Local",
+      name: "local",
+      placeholder: "Rua Alberto 430",
+      inputClassName: "input-extra-grande",
     },
     {
-      type: 'text',
-      label: 'Marca',
-      name: 'marca',
-      placeholder: 'marca',
-      inputClassName: 'input-extra-grande',
+      type: "text",
+      label: "Marca",
+      name: "marca",
+      placeholder: "marca",
+      inputClassName: "input-extra-grande",
     },
     {
-      type: 'text',
-      label: 'Modelo',
-      name: 'modelo',
-      placeholder: '155w',
-      inputClassName: 'input-extra-grande',
+      type: "text",
+      label: "Modelo",
+      name: "modelo",
+      placeholder: "155w",
+      inputClassName: "input-extra-grande",
     },
     {
-      type: 'checkbox',
-      label: 'Ativo',
-      name: 'ativa',
-      placeholder: 'check',
-      className: 'checkbox-label',
+      type: "checkbox",
+      label: "Ativo",
+      name: "ativa",
+      placeholder: "check",
+      className: "checkbox-label",
     },
   ];
-  const ENDPOINT_UNIDADES = 'http://localhost:3000/api/v1/unidades';
+  const ENDPOINT_UNIDADES = "http://localhost:3000/api/v1/unidades";
 
   const validarInputs = (formData) => {
     const { apelido, local, marca, modelo } = formData;
     if (!apelido || !local || !marca || !modelo) {
-      alert('Preencha todos os campos');
+      alert("Preencha todos os campos");
       return false;
     }
     return true;
@@ -57,13 +58,18 @@ export const CadastroUnidade = ({ mudarFormulario }) => {
 
   const postNovaUnidade = async (novaUnidade) => {
     try {
-      const updatedResponse = await axios.post(ENDPOINT_UNIDADES, novaUnidade);
+      const updatedResponse = await axios.post(ENDPOINT_UNIDADES, novaUnidade, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+      });
       if (updatedResponse.status === 201) {
-        alert('Unidade cadastrada com sucesso');
+        alert("Unidade cadastrada com sucesso");
         setError(false);
         mudarFormulario();
       } else {
-        alert('Erro ao cadastrar unidade');
+        alert("Erro ao cadastrar unidade");
         setError(true);
       }
     } catch (error) {
