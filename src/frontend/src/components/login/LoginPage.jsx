@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { FiLock } from "react-icons/fi";
 import { PiEnvelopeLight } from "react-icons/pi";
 import axios from "axios";
+import imagemEolicaSolar from "../../assets/LoginImagem/imagemeolicasolar.png";
+import imagemLogo from "../../assets/LoginImagem/logo.png";
 import { Link } from "react-router-dom";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -63,7 +65,7 @@ const Login = () => {
         <div className="col-md-6 left-box">
           <div className="featured-img">
             <img
-              src="../src/assets/LoginImagem/imagemeolicasolar.png  "
+              src={imagemEolicaSolar}
               alt="imagem de um sistema solar com um sistema eolico"
             />
           </div>
@@ -73,7 +75,7 @@ const Login = () => {
           <div className="row align-items-center">
             <div className="col-md-12 d-flex justify-content-center align-items-center logo">
               <img
-                src="../src/assets/LoginImagem/logo.png"
+                src={imagemLogo}
                 alt="logo solar energy"
               />
             </div>
