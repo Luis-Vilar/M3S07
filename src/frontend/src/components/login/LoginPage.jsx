@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FiLock } from "react-icons/fi";
 import { PiEnvelopeLight } from "react-icons/pi";
-import axios from "axios";
+import Api from "../../api/Api.jsx";
 import imagemEolicaSolar from "../../assets/LoginImagem/imagemeolicasolar.png";
 import imagemLogo from "../../assets/LoginImagem/logo.png";
 import { Link } from "react-router-dom";
@@ -35,11 +35,11 @@ const Login = () => {
 
     try {
       // Faça uma chamada para a API para autenticar o usuário usando Axios
-      const response = await axios.post("http://localhost:3000/api/v1/login", {
+      const response = await Api.post("api/v1/login", {
         email,
         password,
       });
-
+      
       if (response.status === 200) {
         // Login bem-sucedido
         handleLoginSuccess(response.data.token);
