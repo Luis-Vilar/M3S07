@@ -26,4 +26,21 @@ const options = {
 };
 
 const swaggerSpec = swaggerJsdoc(options);
+
+// Personalize o título "Default" aqui
+delete swaggerSpec.paths.default;
+// Personalize o título "Default" aqui
+swaggerSpec.paths["/api/v1/geracao"]["get"]["tags"] = ["Geracao"]; 
+swaggerSpec.paths["/api/v1/geracao"]["post"]["tags"] = ["Geracao"]; 
+swaggerSpec.paths["/api/v1/geracao/{unidadeId}"]["get"]["tags"] = ["Geracao"];
+swaggerSpec.paths["/api/v1/geracao/{id}"]["put"]["tags"] = ["Geracao"];
+swaggerSpec.paths["/api/v1/geracao/{id}"]["delete"]["tags"] = ["Geracao"];
+// Personalize o título "Default" aqui unidades
+swaggerSpec.paths["/api/v1/unidades"]["get"]["tags"] = ["Unidades"];
+swaggerSpec.paths["/api/v1/unidades"]["post"]["tags"] = ["Unidades"];
+swaggerSpec.paths["/api/v1/unidades/{id}"]["put"]["tags"] = ["Unidades"];
+swaggerSpec.paths["/api/v1/unidades/{id}"]["delete"]["tags"] = ["Unidades"];
+
+
+
 module.exports = swaggerSpec;
