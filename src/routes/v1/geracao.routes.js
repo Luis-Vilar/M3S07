@@ -29,7 +29,10 @@ geracaoRoutes.get("/api/v1/geracao", geracaoController.getGeracao);
  *       200:
  *         description: Sucesso.
  */
-geracaoRoutes.get("/api/v1/geracao/:unidadeId", geracaoController.getGeracaoUnidade);
+geracaoRoutes.get(
+  "/api/v1/geracao/:unidadeId",
+  geracaoController.getGeracaoUnidade
+);
 
 /**
  * @swagger
@@ -60,7 +63,6 @@ geracaoRoutes.get("/api/v1/geracao/:unidadeId", geracaoController.getGeracaoUnid
  */
 
 geracaoRoutes.post("/api/v1/geracao", geracaoController.createGeracao);
-
 
 /**
  * @swagger
@@ -94,7 +96,7 @@ geracaoRoutes.post("/api/v1/geracao", geracaoController.createGeracao);
  *         description: Geração atualizada com sucesso.
  */
 
-geracaoRoutes.put("/api/v1/geracao/:id",  geracaoController.updateGeracao);
+geracaoRoutes.put("/api/v1/geracao/:id", geracaoController.updateGeracao);
 
 /**
  * @swagger
@@ -114,6 +116,4 @@ geracaoRoutes.put("/api/v1/geracao/:id",  geracaoController.updateGeracao);
  */
 geracaoRoutes.delete("/api/v1/geracao/:id", geracaoController.deleteGeracao);
 
-
 module.exports = geracaoRoutes;
-

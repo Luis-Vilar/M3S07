@@ -11,8 +11,8 @@ const options = {
     },
   },
   apis: [
-    path.join(__dirname, "src/routes/v1/geracao.routes.js"), // Caminho para os arquivos de rota
-        // Adicione mais caminhos de arquivo de rota, se necessário
+    path.join(__dirname, "src/routes/v1/geracao.routes.js"), 
+    path.join(__dirname, "src/routes/v1/unidades.routes.js"),
   ],
 };
 
