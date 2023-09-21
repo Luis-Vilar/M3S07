@@ -20,6 +20,8 @@ geracaoRoutes.get("/api/v1/geracao", auth, geracaoController.getGeracao);
  * /api/v1/geracao/{unidadeId}:
  *   get:
  *     summary: Retorna a geração de uma unidade específica.
+ *     security:
+ *       - jwtAuth: []
  *     parameters:
  *       - in: path
  *         name: unidadeId
@@ -31,13 +33,19 @@ geracaoRoutes.get("/api/v1/geracao", auth, geracaoController.getGeracao);
  *       200:
  *         description: Sucesso.
  */
-geracaoRoutes.get("/api/v1/geracao/:unidadeId", auth ,geracaoController.getGeracaoUnidade);
+geracaoRoutes.get(
+  "/api/v1/geracao/:unidadeId",
+  auth,
+  geracaoController.getGeracaoUnidade
+);
 
 /**
  * @swagger
  * /api/v1/geracao:
  *   post:
  *     summary: Cria uma nova geração.
+ *     security:
+ *       - jwtAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -68,6 +76,8 @@ geracaoRoutes.post("/api/v1/geracao", auth, geracaoController.createGeracao);
  * /api/v1/geracao/{id}:
  *   put:
  *     summary: Atualiza uma geração existente.
+ *     security:
+ *       - jwtAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -102,6 +112,8 @@ geracaoRoutes.put("/api/v1/geracao/:id", auth, geracaoController.updateGeracao);
  * /api/v1/geracao/{id}:
  *   delete:
  *     summary: Exclui uma geração existente.
+ *     security:
+ *       - jwtAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -113,6 +125,10 @@ geracaoRoutes.put("/api/v1/geracao/:id", auth, geracaoController.updateGeracao);
  *       204:
  *         description: Geração excluída com sucesso.
  */
-geracaoRoutes.delete("/api/v1/geracao/:id", auth, geracaoController.deleteGeracao);
+geracaoRoutes.delete(
+  "/api/v1/geracao/:id",
+  auth,
+  geracaoController.deleteGeracao
+);
 
 module.exports = geracaoRoutes;
