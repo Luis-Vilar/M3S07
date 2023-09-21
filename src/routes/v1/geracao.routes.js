@@ -8,13 +8,12 @@ const { auth } = require("../../middleware/auth");
  *   get:
  *     summary: Retorna todas as gerações.
  *     security:
- *       - jwtAuth: [] 
+ *       - jwtAuth: []
  *     responses:
  *       200:
  *         description: Sucesso.
  */
 geracaoRoutes.get("/api/v1/geracao", auth, geracaoController.getGeracao);
-
 
 /**
  * @swagger
@@ -32,10 +31,7 @@ geracaoRoutes.get("/api/v1/geracao", auth, geracaoController.getGeracao);
  *       200:
  *         description: Sucesso.
  */
-geracaoRoutes.get(
-  "/api/v1/geracao/:unidadeId",
-  geracaoController.getGeracaoUnidade
-);
+geracaoRoutes.get("/api/v1/geracao/:unidadeId",geracaoController.getGeracaoUnidade);
 
 /**
  * @swagger
