@@ -1,11 +1,10 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate , Link } from "react-router-dom";
 import { FiLock } from "react-icons/fi";
 import { PiEnvelopeLight } from "react-icons/pi";
-import axios from "axios";
-import { Link } from "react-router-dom";
-import "bootstrap/dist/js/bootstrap.bundle.min";
-import "bootstrap/dist/css/bootstrap.min.css";
+import Api from "../../api/Api.jsx";
+import imagemEolicaSolar from "../../assets/LoginImagem/imagemeolicasolar.png";
+import imagemLogo from "../../assets/LoginImagem/logo.png";
 import "./LoginPage.css";
 
 const Login = () => {
@@ -16,16 +15,13 @@ const Login = () => {
 
   const handleLoginSuccess = (token) => {
     // Usuário autenticado com sucesso
-    // Salve o token no LocalStorage
     localStorage.setItem("token", token);
-
     // Exiba a mensagem de sucesso
     setMessage("Usuário autenticado com sucesso.");
-
     // Redirecione para a página de dashboard após um breve atraso
     setTimeout(() => {
       navigate("/dashboard");
-    }, 1500); // Redireciona após 1,5 segundo
+    }, 1500); 
   };
 
   const handleSubmit = async (e) => {
@@ -33,23 +29,21 @@ const Login = () => {
 
     try {
       // Faça uma chamada para a API para autenticar o usuário usando Axios
-      const response = await axios.post("http://localhost:3000/api/v1/login", {
+      const response = await Api.post("api/v1/login", {
         email,
         password,
       });
 
       if (response.status === 200) {
-        // Login bem-sucedido
         handleLoginSuccess(response.data.token);
       } else {
-        // Exiba uma mensagem de erro
         setMessage(
           "Acesso negado. Verifique dados de e-mail e senha e tente novamente."
         );
 
         setTimeout(() => {
           setMessage("");
-        }, 2000); // Limpa a mensagem de erro após 2 segundos
+        }, 2000); 
       }
     } catch (error) {
       console.error(error);
@@ -63,7 +57,7 @@ const Login = () => {
         <div className="col-md-6 left-box">
           <div className="featured-img">
             <img
-              src="../src/assets/LoginImagem/imagemeolicasolar.png  "
+              src={imagemEolicaSolar}
               alt="imagem de um sistema solar com um sistema eolico"
             />
           </div>
@@ -73,7 +67,7 @@ const Login = () => {
           <div className="row align-items-center">
             <div className="col-md-12 d-flex justify-content-center align-items-center logo">
               <img
-                src="../src/assets/LoginImagem/logo.png"
+                src={imagemLogo}
                 alt="logo solar energy"
               />
             </div>
@@ -119,7 +113,7 @@ const Login = () => {
                     </button>
                   </div>
                   <div className="message">{message}</div>
-                  <div className="actions">
+                  <div className="cadastre">
                     <p>
                       Não tem uma conta? <Link to="/cadastro-usuario">Cadastre-se</Link>
                     </p>

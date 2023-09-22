@@ -29,6 +29,11 @@ class UserController {
 
       const payload = { email: user.email };
       const token = sign(payload, process.env.SECRET_JWT);
+      console.log(
+
+        process.env.SECRET_JWT
+        
+        )
       return response.status(200).send({
         token: token,
         message: "Login realizado com sucesso!",

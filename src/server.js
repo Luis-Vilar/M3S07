@@ -2,6 +2,9 @@
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
+const morganBody = require("morgan-body");
+const swaggerUi = require("swagger-ui-express");
+const swaggerSpec = require("../swagger");
 const { config } = require("dotenv");
 config();
 
@@ -18,7 +21,15 @@ class Server {
   async middlewares(app) {
     app.use(cors());
     app.use(express.json());
-    app.use(morgan("dev"))
+    const path = require("path");
+    const fs = require("fs");
+    const log = fs.createWriteStream(
+      path.join(__dirname, './logs', `express.log`),
+      { flags: 'a' }
+    );
+    app.use(morgan('combined', { stream: log }));
+    app.use(morgan("dev")); // Mova esta linha para cima
+    app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
   }
   // connect database
   async database() {
@@ -27,23 +38,25 @@ class Server {
       await connection.authenticate();
       console.log("Conexão com o banco de dados estabelecida com sucesso!");
     } catch (error) {
-      console.error("Não foi possível conectar com o banco de dados:", error.message);
+      console.error(
+        "Não foi possível conectar com o banco de dados:",
+        error.message
+      );
     }
   }
   // routes
   async routes(app) {
     const appRoutes = require("./routes");
     app.use(appRoutes);
-
   }
   // start server
   async initializeServer(app) {
     const PORT = process.env.PORT_NODE || 3000;
     const HOST = process.env.HOST_NODE || "localhost";
-    app.listen(PORT, () => console.log(`Servidor executando http://${HOST}:${PORT}`));
+    app.listen(PORT, () =>
+      console.log(`Servidor executando http://${HOST}:${PORT}`)
+    );
   }
-
 }
 
 module.exports = { Server };
-

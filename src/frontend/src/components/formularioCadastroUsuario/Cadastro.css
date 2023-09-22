@@ -96,6 +96,12 @@
     margin-top: 20px;
     text-align: center;
 }
+.return {
+    margin-top: 20px;
+    text-align: center;
+    color: #374557;
+    font-family: 'Roboto Slab', serif;
+}
 
 @media only screen and (max-width: 768px) {
     .box-area {
