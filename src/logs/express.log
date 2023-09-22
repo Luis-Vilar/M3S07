@@ -1,0 +1,2 @@
+::1 - - [22/Sep/2023:00:44:48 +0000] "GET /api/v1/geracao HTTP/1.1" 401 90 "http://localhost:3000/api-docs/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36"
+::1 - - [22/Sep/2023:00:45:55 +0000] "POST /api/v1/login HTTP/1.1" 200 196 "http://localhost:3000/api-docs/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36"
